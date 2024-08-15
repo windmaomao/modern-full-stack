@@ -3,17 +3,11 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { useQuery } from '@tanstack/react-query'
+import { getPosts } from './api/posts.js'
 import { PostList } from './components/PostList'
 import { CreatePost } from './components/CreatePost'
 import { PostFilter } from './components/PostFilter.jsx'
 import { PostSorting } from './components/PostSorting.jsx'
-
-async function getPosts(queryParams) {
-  const res = await fetch(
-    'http://localhost:3001/api/v1/posts?' + new URLSearchParams(queryParams),
-  )
-  return await res.json()
-}
 
 export function Blog() {
   const [count, setCount] = useState(0)
