@@ -2,22 +2,32 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { useQuery } from '@tanstack/react-query'
 import { PostList } from './components/PostList'
 import { CreatePost } from './components/CreatePost'
 import { PostFilter } from './components/PostFilter.jsx'
 import { PostSorting } from './components/PostSorting.jsx'
 
-const posts = [
-  {
-    title: 'Full-Stack React Projects',
-    contents: "Let's become full-stack developers!",
-    author: 'Daniel Bugl',
-  },
-  { title: 'Hello React!' },
-]
+async function getPosts(queryParams) {
+  const res = await fetch(
+    'http://localhost:3001/api/v1/posts?' + new URLSearchParams(queryParams),
+  )
+  return await res.json()
+}
 
 export function Blog() {
   const [count, setCount] = useState(0)
+
+  const [author, setAuthor] = useState('')
+  const [sortBy, setSortBy] = useState('createdAt')
+  const [sortOrder, setSortOrder] = useState('descending')
+
+  const { data } = useQuery({
+    queryKey: ['posts', { author, sortBy, sortOrder }],
+    queryFn: () => getPosts({ author, sortBy, sortOrder }),
+  })
+
+  const posts = data ?? []
 
   return (
     <>
@@ -37,11 +47,19 @@ export function Blog() {
         <div style={{ padding: 8 }}>
           <CreatePost />
           <br />
-          <hr />
-          Filter by:
-          <PostFilter field='author' />
+          <PostFilter
+            field='author'
+            value={author}
+            onChange={(value) => setAuthor(value)}
+          />
           <br />
-          <PostSorting fields={['createdAt', 'updatedAt']} />
+          <PostSorting
+            fields={['createdAt', 'updatedAt']}
+            value={sortBy}
+            onChange={(value) => setSortBy(value)}
+            orderValue={sortOrder}
+            onOrderChange={(orderValue) => setSortOrder(orderValue)}
+          />
           <hr />
           <PostList posts={posts} />
         </div>
