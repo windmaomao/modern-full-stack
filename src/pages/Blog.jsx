@@ -1,13 +1,12 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import { useQuery } from '@tanstack/react-query'
-import { getPosts } from './api/posts.js'
-import { PostList } from './components/PostList'
-import { CreatePost } from './components/CreatePost'
-import { PostFilter } from './components/PostFilter.jsx'
-import { PostSorting } from './components/PostSorting.jsx'
+import { getPosts } from '../api/posts.js'
+import { PostList } from '../components/PostList.jsx'
+import { CreatePost } from '../components/CreatePost.jsx'
+import { PostFilter } from '../components/PostFilter.jsx'
+import { PostSorting } from '../components/PostSorting.jsx'
+import { Header } from '../components/Header.jsx'
 
 export function Blog() {
   const [count, setCount] = useState(0)
@@ -25,20 +24,16 @@ export function Blog() {
 
   return (
     <>
-      <div>
-        <a href='https://vitejs.dev' target='_blank' rel='noreferrer'>
-          <img src={viteLogo} className='logo' alt='Vite logo' />
-        </a>
-        <a href='https://react.dev' target='_blank' rel='noreferrer'>
-          <img src={reactLogo} className='logo react' alt='React logo' />
-        </a>
-      </div>
       <h1>Vite + React</h1>
       <div className='card'>
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
         <div style={{ padding: 8 }}>
+          <Header />
+          <br />
+          <hr />
+          <br />
           <CreatePost />
           <br />
           <PostFilter
