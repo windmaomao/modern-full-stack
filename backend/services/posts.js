@@ -9,7 +9,9 @@ async function listPosts(
   query = {},
   { sortBy = 'createdAt', sortOrder = 'descending' } = {},
 ) {
-  return await Post.find(query).sort({ [sortBy]: sortOrder })
+  return await Post.find(query)
+    .populate('author')
+    .sort({ [sortBy]: sortOrder })
 }
 
 export async function listAllPosts(options) {

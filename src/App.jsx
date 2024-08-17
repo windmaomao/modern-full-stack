@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import './App.css'
 import { Blog } from './pages/Blog.jsx'
 import { Signup } from './pages/Signup.jsx'
 

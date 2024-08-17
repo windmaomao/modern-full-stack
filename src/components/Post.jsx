@@ -8,7 +8,7 @@ export function Post({ title, contents, author }) {
       {author && (
         <em>
           <br />
-          Written by <strong>{author}</strong>
+          Written by <strong>{author.username}</strong>
         </em>
       )}
     </article>
